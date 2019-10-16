@@ -4,6 +4,8 @@ var keys = require("./keys.js")
 var Spotify = require('node-spotify-api');
 const axios = require('axios');
 var spotify = new Spotify(keys.spotify);
+// var OMDB = require(keys.OMDB)
+// var queryURL = "http://www.omdbapi.com/?i=tt3896198&apikey=342a1191";
 
 var action = process.argv[2];
 var input = process.argv.splice(3).join(" ");
@@ -26,41 +28,55 @@ var spotifyTHIS = function (song) {
   });
 }
 var bandsintownTHIS = function (artist) {
-    var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-  
-    axios.get(queryURL).then(
-      function(response) {
-        var jsonData = response.data;
-  
-        console.log(jsonData);
-   })
-  }
+  var queryURL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
 
-
-  
-
-// COMMAND --> node liri.js concert-this <artist/band name here>
-// **ACTION = SPOTIFY THIS SONG COMMAND** //
-if (action === "spotify-this-song") {
-  if (input === "") {
-    input = "Ace of base - the sign";
-  }
-  spotifyTHIS(title)
+  axios.get(queryURL).then(
+    function (response) {
+      var jsonData = response.data;
+      console.log(response.data.offers);
+      for (let i=0; i<jsonData.length; i++) {
+        var eventData = jsonData[i]
+        console.log('----------------')
+        console.log('Event Date:', eventData.datetime);
+        console.log('Venue Name:', eventData.venue.name);
+        console.log('City/State: ' + eventData.venue.city + ', ' + eventData.venue.region);
+      }
+    })
 }
-// **ACTION = CONCERT THIS** //
-if (action === "concert-this") {
-  if (input === "") {
-    input = "BLANK";
+
+var OMDB = function (movie) {
+  var queryURL = "http://www.omdbapi.com/?i=tt3896198&apikey=342a1191&t=" + movie;
+
+  axios.get(queryURL).then(
+    function (response) {
+      var jsonData = response.data;
+      console.log(jsonData)
+    })
   }
-  bandsintownTHIS(input)
-}
-// // **ACTION = MOVIE THIS** //
-// if (action === "movie-this") {
-//   if (title === "") {
-//     title = "BLANK";
-//   }
-//   spotifyTHIS(concert)
-// }
+
+  // COMMAND --> node liri.js concert-this <artist/band name here>
+  // **ACTION = SPOTIFY THIS SONG COMMAND** //
+  if (action === "spotify-this-song") {
+    if (input === "") {
+      input = "Ace of base - the sign";
+    }
+    spotifyTHIS(title)
+  }
+  // **ACTION = CONCERT THIS** //
+  if (action === "concert-this") {
+    if (input === "") {
+      input = "BLANK";
+    }
+    bandsintownTHIS(input)
+  }
+  // // **ACTION = MOVIE THIS** //
+  if (action === "movie-this") {
+    if (input === "") {
+      input = "BLANK";
+    }
+    OMDB(input)
+  }
+
 // // **ACTION = DO WHAT IT SAYS** //
 // if (action === "do-what-it-says") {
 //   if (title === "") {
@@ -71,15 +87,7 @@ if (action === "concert-this") {
 // // **LOG TO TEXT** //
 // if (action === output) {
 //   if (output === log text) {
-  // }
-
-
-
-
-//OMDB API Key *** 
-//BandsInTowns Key
-
-//PLACE keys in Key folder so they are encrypted
+// }
 //Require API key to connect to javascript (file pathway to keys)
 //Create variable expression with function expression for concerts for BIT
 //Axios library for bands in town event pull data and OMDB
