@@ -46,13 +46,18 @@ if (action === "movie-this") {
   }
   spotifyTHIS(concert)
 }
-// **ACTION = MOVIE THIS** //
+// **ACTION = DO WHAT IT SAYS** //
 if (action === "do-what-it-says") {
   if (title === "") {
     title = "BLANK";
   }
   spotifyTHIS(concert)
 }
+// **LOG TO TEXT** //
+if (action === output) {
+  if (output === log text) {
+  }
+
 
 
 
