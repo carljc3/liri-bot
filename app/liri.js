@@ -9,24 +9,52 @@ var title = process.argv.splice(3).join(" ");
 
 
 // Example request for our reference
-var spotifyTHIS = function(song){
-  spotify.search({ type: 'track', query:song}, function(err, data) {
+var spotifyTHIS = function (song) {
+  spotify.search({
+    type: 'track',
+    query: song
+  }, function (err, data) {
     if (err) {
       return console.log('Error occurred: ' + err);
     }
-   
-  console.log(data.tracks.items[0].album.artists[0].name); 
-  console.log(data.tracks.items[0].name); 
-  console.log(data.tracks.items[0].preview_url);
-  console.log(data.tracks.items[0].album.name);
+
+    console.log(data.tracks.items[0].album.artists[0].name);
+    console.log(data.tracks.items[0].name);
+    console.log(data.tracks.items[0].preview_url);
+    console.log(data.tracks.items[0].album.name);
   });
 
-} 
-
-if (action === "spotify-this-song"){
-
+}
+// **ACTION = SPOTIFY THIS SONG COMMAND** //
+if (action === "spotify-this-song") {
+  if (title === "") {
+    title = "Ace of base - the sign";
+  }
   spotifyTHIS(title)
 }
+// **ACTION = CONCERT THIS** //
+if (action === "concert-this") {
+  if (title === "") {
+    title = "BLANK";
+  }
+  spotifyTHIS(concert)
+}
+// **ACTION = MOVIE THIS** //
+if (action === "movie-this") {
+  if (title === "") {
+    title = "BLANK";
+  }
+  spotifyTHIS(concert)
+}
+// **ACTION = MOVIE THIS** //
+if (action === "do-what-it-says") {
+  if (title === "") {
+    title = "BLANK";
+  }
+  spotifyTHIS(concert)
+}
+
+
 
 //OMDB API Key *** 
 //BandsInTowns Key
