@@ -4,12 +4,9 @@ var keys = require("./keys.js")
 var Spotify = require('node-spotify-api');
 const axios = require('axios');
 var spotify = new Spotify(keys.spotify);
-// var OMDB = require(keys.OMDB)
-// var queryURL = "http://www.omdbapi.com/?i=tt3896198&apikey=342a1191";
 
 var action = process.argv[2];
 var input = process.argv.splice(3).join(" ");
-
 
 // Example request for our reference
 var spotifyTHIS = function (song) {
@@ -34,7 +31,7 @@ var bandsintownTHIS = function (artist) {
     function (response) {
       var jsonData = response.data;
       console.log(response.data.offers);
-      for (let i=0; i<jsonData.length; i++) {
+      for (let i = 0; i < jsonData.length; i++) {
         var eventData = jsonData[i]
         console.log('----------------')
         console.log('Event Date:', eventData.datetime);
@@ -52,30 +49,30 @@ var OMDB = function (movie) {
       var jsonData = response.data;
       console.log(jsonData)
     })
-  }
+}
 
-  // COMMAND --> node liri.js concert-this <artist/band name here>
-  // **ACTION = SPOTIFY THIS SONG COMMAND** //
-  if (action === "spotify-this-song") {
-    if (input === "") {
-      input = "Ace of base - the sign";
-    }
-    spotifyTHIS(title)
+// ****COMMAND ORDER: [node liri.js "COMMAND HERE" [song/artist/movie]**** //
+// **ACTION = SPOTIFY THIS SONG COMMAND** //
+if (action === "spotify-this-song") {
+  if (input === "") {
+    input = "Ace of base - the sign";
   }
-  // **ACTION = CONCERT THIS** //
-  if (action === "concert-this") {
-    if (input === "") {
-      input = "BLANK";
-    }
-    bandsintownTHIS(input)
+  spotifyTHIS(title)
+}
+// **ACTION = CONCERT THIS** //
+if (action === "concert-this") {
+  if (input === "") {
+    input = "BLANK";
   }
-  // // **ACTION = MOVIE THIS** //
-  if (action === "movie-this") {
-    if (input === "") {
-      input = "BLANK";
-    }
-    OMDB(input)
+  bandsintownTHIS(input)
+}
+// // **ACTION = MOVIE THIS** //
+if (action === "movie-this") {
+  if (input === "") {
+    input = "BLANK";
   }
+  OMDB(input)
+}
 
 // // **ACTION = DO WHAT IT SAYS** //
 // if (action === "do-what-it-says") {
