@@ -4,6 +4,7 @@ var keys = require("./keys.js")
 var Spotify = require('node-spotify-api');
 const axios = require('axios');
 var spotify = new Spotify(keys.spotify);
+var fs = require('fs');
 
 var action = process.argv[2];
 var input = process.argv.splice(3).join(" ");
@@ -52,6 +53,7 @@ var OMDB = function (movie) {
 }
 
 // ****COMMAND ORDER: [node liri.js "COMMAND HERE" [song/artist/movie]**** //
+
 // **ACTION = SPOTIFY THIS SONG COMMAND** //
 if (action === "spotify-this-song") {
   if (input === "") {
@@ -74,18 +76,32 @@ if (action === "movie-this") {
   OMDB(input)
 }
 
-// // **ACTION = DO WHAT IT SAYS** //
-// if (action === "do-what-it-says") {
-//   if (title === "") {
-//     title = "BLANK";
-//   }
-//   spotifyTHIS(concert)
-// }
-// // **LOG TO TEXT** //
-// if (action === output) {
-//   if (output === log text) {
-// }
-//Require API key to connect to javascript (file pathway to keys)
-//Create variable expression with function expression for concerts for BIT
-//Axios library for bands in town event pull data and OMDB
-//Look though data object, write argument values for data retreived 
+// **ACTION = DO WHAT IT SAYS** //
+
+if (action === "do-what-it-says") {
+  fs.readFile("random.txt", "utf8", function(error, data) {
+    console.log(data);
+    console.log(data.split(",")); // **IS A STRING**
+    console.log(data.split(",")[0]);
+    console.log(data.split(",")[1]);
+
+    var randomAction = data.split(",")[0]
+    var randomValue = data.split(",")[1]
+
+    if (randomAction === "spotify-this-song") {
+      spotifyTHIS(randomValue)
+    }
+    // **ACTION = CONCERT THIS** //
+    if (randomAction === "concert-this") {
+      bandsintownTHIS(randomValue)
+    }
+    // // **ACTION = MOVIE THIS** //
+    if (randomAction === "movie-this") {
+      OMDB(randomValue)
+    }
+  });
+  // if (action === read(random.txt) {
+  //   title = "BLANK";
+  // }
+  // spotifyTHIS(concert)
+}
