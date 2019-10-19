@@ -79,7 +79,7 @@ if (action === "movie-this") {
 // **ACTION = DO WHAT IT SAYS** //
 
 if (action === "do-what-it-says") {
-  fs.readFile("random.txt", "utf8", function(error, data) {
+  fs.readFile("random.txt", "utf8", function (error, data) {
     console.log(data);
     console.log(data.split(",")); // **IS A STRING**
     console.log(data.split(",")[0]);
@@ -91,17 +91,13 @@ if (action === "do-what-it-says") {
     if (randomAction === "spotify-this-song") {
       spotifyTHIS(randomValue)
     }
-    // **ACTION = CONCERT THIS** //
+    // **randomACTION = CONCERT THIS** //
     if (randomAction === "concert-this") {
       bandsintownTHIS(randomValue)
     }
-    // // **ACTION = MOVIE THIS** //
+    // // **randomACTION = MOVIE THIS** //
     if (randomAction === "movie-this") {
       OMDB(randomValue)
     }
   });
-  // if (action === read(random.txt) {
-  //   title = "BLANK";
-  // }
-  // spotifyTHIS(concert)
 }
